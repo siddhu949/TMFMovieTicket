@@ -62,3 +62,53 @@ The **Entity Relationship Model (ER Model)** represents key entities:
 ---
 
 ## 📂 Project Structure
+movie-ticket-booking/
+│
+├── src/main/java/com/moviebooking/
+│   ├── controller/
+│   │   ├── UserController.java
+│   │   ├── AdminController.java
+│   │   └── BookingController.java
+│   │
+│   ├── model/
+│   │   ├── User.java
+│   │   ├── Movie.java
+│   │   ├── Theatre.java
+│   │   ├── Show.java
+│   │   └── Booking.java
+│   │
+│   ├── service/
+│   │   ├── UserService.java
+│   │   ├── MovieService.java
+│   │   └── BookingService.java
+│   │
+│   ├── repository/
+│   │   ├── UserRepository.java
+│   │   ├── MovieRepository.java
+│   │   └── BookingRepository.java
+│   │
+│   └── MovieTicketBookingApplication.java
+│
+├── src/main/resources/
+│   ├── application.properties
+│   └── templates/
+│       ├── index.jsp
+│       ├── login.jsp
+│       ├── booking.jsp
+│       ├── admin_dashboard.jsp
+│
+└── pom.xml
+
+
+---
+
+## ⚙️ Configuration
+
+### `application.properties`
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/movie_db
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+server.port=8080
