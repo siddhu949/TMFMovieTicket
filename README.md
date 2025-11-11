@@ -98,8 +98,7 @@ The **Entity Relationship Model (ER Model)** represents key entities:
 │       ├── admin_dashboard.jsp
 │
 └── pom.xml
----
-
+```
 
 
 ## ⚙️ Configuration
