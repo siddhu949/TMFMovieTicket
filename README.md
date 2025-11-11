@@ -62,7 +62,7 @@ The **Entity Relationship Model (ER Model)** represents key entities:
 ---
 
 ## 📂 Project Structure
-movie-ticket-booking/
+```movie-ticket-booking/
 │
 ├── src/main/java/com/moviebooking/
 │   ├── controller/
@@ -97,7 +97,7 @@ movie-ticket-booking/
 │       ├── booking.jsp
 │       ├── admin_dashboard.jsp
 │
-└── pom.xml
+└── pom.xml```
 
 
 ---
