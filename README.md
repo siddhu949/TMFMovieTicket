@@ -113,7 +113,7 @@ spring.jpa.show-sql=true
 server.port=8080
 ```
 
-##🚀 How to Run
+## 🚀 How to Run
 
 -Clone the repository:
 
@@ -127,13 +127,13 @@ server.port=8080
 
 - Visit the app at 👉 http://localhost:8081/
  ---
-##🧾 Functional Requirements
+## 🧾 Functional Requirements
 | User Role | 	Functionality | 
 |-------|-------------|
 |User|	Register, login, search movies, book/cancel tickets|
 |Admin|	Manage movies, theatres, shows, and view bookings|
 ---
-##🧰 Future Enhancements
+## 🧰 Future Enhancements
 
 - Integrate online payment (Razorpay/Stripe)
 - Send booking confirmation via Email/SMS
