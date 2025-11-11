@@ -110,14 +110,14 @@ spring.datasource.username=root
 spring.datasource.password=yourpassword
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-server.port=8080```
+server.port=8080
+```
 
 ##🚀 How to Run
 
 -Clone the repository:
 
 - git clone https://github.com/yourusername/movie-ticket-booking.git
-
 
 - Import the project into your IDE (Eclipse / IntelliJ)
 
@@ -126,4 +126,17 @@ server.port=8080```
 - Run MovieTicketBookingApplication.java as a Spring Boot App
 
 - Visit the app at 👉 http://localhost:8081/
+ ---
+##🧾 Functional Requirements
+| User Role | 	Functionality | 
+|-------|-------------|
+|User|	Register, login, search movies, book/cancel tickets|
+|Admin|	Manage movies, theatres, shows, and view bookings|
+---
+##🧰 Future Enhancements
 
+- Integrate online payment (Razorpay/Stripe)
+- Send booking confirmation via Email/SMS
+- Add movie recommendation system
+
+- Add analytics dashboard for admin
