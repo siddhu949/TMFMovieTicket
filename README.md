@@ -97,7 +97,8 @@ The **Entity Relationship Model (ER Model)** represents key entities:
 │       ├── booking.jsp
 │       ├── admin_dashboard.jsp
 │
-└── pom.xml```
+└── pom.xml
+---
 
 
 
@@ -116,14 +117,14 @@ server.port=8080```
 
 -Clone the repository:
 
--git clone https://github.com/yourusername/movie-ticket-booking.git
+- git clone https://github.com/yourusername/movie-ticket-booking.git
 
 
--Import the project into your IDE (Eclipse / IntelliJ)
+- Import the project into your IDE (Eclipse / IntelliJ)
 
--Configure MySQL credentials in application.properties
+- Configure MySQL credentials in application.properties
 
--Run MovieTicketBookingApplication.java as a Spring Boot App
+- Run MovieTicketBookingApplication.java as a Spring Boot App
 
--Visit the app at 👉 http://localhost:8081/
+- Visit the app at 👉 http://localhost:8081/
 
