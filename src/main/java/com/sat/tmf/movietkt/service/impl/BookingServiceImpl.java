@@ -79,5 +79,10 @@ public class BookingServiceImpl implements BookingService {
         booking.setStatus("CANCELLED");
         bookingDao.saveOrUpdate(booking);
     }
+
+	@Override
+	public Booking findById(Integer bookingId) {
+		 Booking booking = bookingDao.findById(bookingId);
+	        return booking;	}
 }
 

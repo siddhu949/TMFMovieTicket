@@ -22,7 +22,9 @@ public class HibernateConfig {
         sessionFactory.setPackagesToScan("com.sat.tmf.movietkt.entities");
         Properties props = new Properties();
         props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        props.put("hibernate.hbm2ddl.auto", "update");
         props.put("hibernate.show_sql", true);
+        props.put("hibernate.format_sql", "true");
         sessionFactory.setHibernateProperties(props);
         return sessionFactory;
     }

@@ -11,5 +11,6 @@ public interface BookingService {
     Booking confirmBooking(Integer bookingId);
     List<Booking> findByUser(User user);
     void cancelBooking(Integer bookingId);
+    Booking findById(Integer bookingId);
 }
 
