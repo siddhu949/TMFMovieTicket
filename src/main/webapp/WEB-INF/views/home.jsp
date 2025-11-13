@@ -334,7 +334,7 @@
             <li><a href="/movies">Movies</a></li>
             <li><a href="/theaters">Theaters</a></li>
             <li><a href="/offers">Offers</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a href="login">Login</a></li>
         </ul>
     </nav>
 
