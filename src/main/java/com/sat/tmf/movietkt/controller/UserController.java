@@ -48,14 +48,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model) {
+    public String loginUser(@ModelAttribute User user, Model model,HttpSession session) {
         try {
-            userService.register(user);
+            User loggedUser= userService.authenticate(user.getUserName().user.getPassword());
+            if(loggedUser!=null){}
+            session.setAttribute("loggedUser",loggedUser);
+            model.addAttribute("user",loggedUser);
+            model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
+            return "layout/layout";
             model.addAttribute("message", "login successful!");
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
-        model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
+        model.addAttribute("contentPage", "/WEB-INF/views/pages/login.jsp");
         return "layout/layout";
     }
 
@@ -85,6 +90,12 @@ public class UserController {
         model.addAttribute("contentPage", "/WEB-INF/views/admin/adminUsers.jsp");
         model.addAttribute("pageTitle", "All Users");
         return "layout/layout";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/user/login";
     }
 }
 
