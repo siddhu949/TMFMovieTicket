@@ -37,6 +37,27 @@ public class UserController {
         model.addAttribute("contentPage", "/WEB-INF/views/pages/register.jsp");
         return "layout/layout";
     }
+    
+ // =================== LOGIN ===================
+    @GetMapping("/login")
+    public String showLoginPage(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("contentPage", "/WEB-INF/views/pages/login.jsp");
+        model.addAttribute("pageTitle", "login");
+        return "layout/layout";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@ModelAttribute User user, Model model) {
+        try {
+            userService.register(user);
+            model.addAttribute("message", "login successful!");
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
+        return "layout/layout";
+    }
 
     // =================== PROFILE ===================
     @GetMapping("/profile")
