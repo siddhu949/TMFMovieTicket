@@ -55,7 +55,7 @@ public class UserController {
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
-        model.addAttribute("contentPage", "/WEB-INF/views/pages/profile.jsp");
+        model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
         return "layout/layout";
     }
 
