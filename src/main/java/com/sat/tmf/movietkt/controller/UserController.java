@@ -52,7 +52,7 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User user, Model model,HttpSession session) {
         try {
-            User loggedUser= userService.findByUsername(user.getUsername());
+            User loggedUser= userService.authentication(user.getUsername(),user.getPassword());
             if(loggedUser!=null){}
             session.setAttribute("loggedUser",loggedUser);
             model.addAttribute("user",loggedUser);

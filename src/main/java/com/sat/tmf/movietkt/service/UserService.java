@@ -10,5 +10,6 @@ public interface UserService {
     User findByEmail(String email);
     User updateUserProfile(String username, User updatedUser);
     List<User> findAllUsers();
+    User authentication(String username,String password);
 }
 
