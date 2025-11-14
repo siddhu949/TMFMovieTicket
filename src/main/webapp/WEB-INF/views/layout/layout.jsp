@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 .card {
     transition: all 0.3s ease;
 }

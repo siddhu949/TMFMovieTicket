@@ -19,6 +19,7 @@ public class UserDao extends GenericDao<User, Integer> {
         super(User.class);
     }
 
+
     /**
      * Find a user by username.
      *
@@ -66,5 +67,6 @@ public class UserDao extends GenericDao<User, Integer> {
         query.setParameter("uname", username);
         query.setParameter("pwd", password);
         return query.uniqueResult();
+
     }
 }

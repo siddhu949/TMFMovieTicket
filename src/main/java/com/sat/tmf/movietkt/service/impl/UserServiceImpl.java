@@ -59,5 +59,10 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUsers() {
         return userDao.findAll();
     }
+
+    @Override
+    public User authentication(String username, String password) {
+        return userDao.authenticate(username, password);
+    }
 }
 

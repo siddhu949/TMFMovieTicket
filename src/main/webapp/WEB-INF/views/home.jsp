@@ -354,14 +354,14 @@
         <div class="movies-grid">
             <c:forEach var="movie" items="${featuredMovies}">
                 <div class="movie-card">
-                    <img src="${movie.imageUrl}" alt="${movie.title}" class="movie-poster">
+                    <img src="${movie.posterUrl}" alt="${movie.title}" class="movie-poster">
                     <div class="movie-info">
                         <h3 class="movie-title">${movie.title}</h3>
                         <p class="movie-genre">${movie.genre}</p>
                         <div class="movie-footer">
-                            <div class="rating">
-                                ⭐ ${movie.rating}
-                            </div>
+<%--                            <div class="rating">--%>
+<%--                                ⭐ ${movie.rating}--%>
+<%--                            </div>--%>
                             <button class="book-btn">Book Now</button>
                         </div>
                     </div>

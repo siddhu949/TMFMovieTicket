@@ -17,8 +17,10 @@ import com.sat.tmf.movietkt.entities.Show;
 import com.sat.tmf.movietkt.service.MovieService;
 import com.sat.tmf.movietkt.service.ShowService;
 
+
+
 @Controller
-@RequestMapping("/admin/movies")
+
 public class MovieController {
 
     @Autowired
@@ -26,9 +28,10 @@ public class MovieController {
     
     @Autowired
     private ShowService showService;
-
+    /* ------------------ ADMIN MOVIE MANAGEMENT ------------------ */
+    
     // List all movies
-    @GetMapping
+    @GetMapping("/admin/movies")
     public String listMovies(Model model, @RequestParam(required = false) String search) {
         List<Movie> movies;
         if (search != null && !search.isEmpty()) {
@@ -44,7 +47,7 @@ public class MovieController {
     }
 
     // Show form to add a movie
-    @GetMapping("/add")
+    @GetMapping("/admin/movies/add")
     public String showAddForm(Model model) {
         model.addAttribute("movie", new Movie());
         model.addAttribute("contentPage", "/WEB-INF/views/admin/addMovie.jsp");
@@ -53,14 +56,14 @@ public class MovieController {
     }
 
     // Save new movie
-    @PostMapping("/add")
+    @PostMapping("/admin/movies/add")
     public String addMovie(@ModelAttribute Movie movie) {
         movieService.addMovie(movie);
         return "redirect:/admin/movies";
     }
 
     // Edit movie form
-    @GetMapping("/edit/{id}")
+    @GetMapping("/admin/movies/edit/{id}")
     public String editMovie(@PathVariable Integer id, Model model) {
         Movie movie = movieService.findById(id);
         model.addAttribute("movie", movie);
@@ -70,7 +73,7 @@ public class MovieController {
     }
 
     // Delete movie
-    @GetMapping("/delete/{id}")
+    @GetMapping("/admin/movies/delete/{id}")
     public String deleteMovie(@PathVariable Integer id) {
         movieService.deleteMovie(id);
         return "redirect:/admin/movies";
@@ -98,13 +101,17 @@ public class MovieController {
     }
 
     @GetMapping("/movies/{id}/shows")
+  
     public String listShowsForMovie(@PathVariable Integer id, Model model) {
         Movie movie = movieService.findById(id);
         List<Show> shows = showService.findUpcomingShows(movie);
+        
         model.addAttribute("movie", movie);
         model.addAttribute("shows", shows);
         model.addAttribute("contentPage", "/WEB-INF/views/user/movieShows.jsp");
         model.addAttribute("pageTitle", movie.getTitle() + " - Showtimes");
+        System.out.println("Movie: " + movie);
+        System.out.println("Shows size: " + shows.size());
         return "layout/layout";
     }
 
