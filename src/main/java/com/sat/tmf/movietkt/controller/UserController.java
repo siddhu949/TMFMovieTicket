@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.sat.tmf.movietkt.entities.User;
 import com.sat.tmf.movietkt.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.security.Principal;
 
 @Controller
@@ -50,13 +52,13 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User user, Model model,HttpSession session) {
         try {
-            User loggedUser= userService.authenticate(user.getUserName().user.getPassword());
+            User loggedUser= userService.findByUsername(user.getUsername());
             if(loggedUser!=null){}
             session.setAttribute("loggedUser",loggedUser);
             model.addAttribute("user",loggedUser);
             model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
             return "layout/layout";
-            model.addAttribute("message", "login successful!");
+           
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
