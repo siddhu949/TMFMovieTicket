@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <div class="container mt-4">
     <h2>${pageTitle}</h2>
     <form id="bookingForm" method="post" action="${pageContext.request.contextPath}/booking/hold">

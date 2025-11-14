@@ -3,8 +3,10 @@ package com.sat.tmf.movietkt.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,8 @@ import com.sat.tmf.movietkt.service.ShowService;
 import com.sat.tmf.movietkt.service.TemplateSeatService;
 import com.sat.tmf.movietkt.service.UserService;
 
+
+
 @Controller
 @RequestMapping("/booking")
 public class BookingController {
@@ -31,8 +35,10 @@ public class BookingController {
 
     // View seat map for a show
     @GetMapping("/select/{showId}")
+    @Transactional
     public String selectSeats(@PathVariable Integer showId, Model model) {
         Show show = showService.findById(showId);
+   
         model.addAttribute("show", show);
         model.addAttribute("templateSeats", seatService.findByTemplateId(show.getSeatTemplate().getId()));
         model.addAttribute("contentPage", "/WEB-INF/views/user/selectSeats.jsp");

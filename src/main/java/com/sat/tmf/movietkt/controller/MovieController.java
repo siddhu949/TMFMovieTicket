@@ -17,6 +17,8 @@ import com.sat.tmf.movietkt.entities.Show;
 import com.sat.tmf.movietkt.service.MovieService;
 import com.sat.tmf.movietkt.service.ShowService;
 
+
+
 @Controller
 
 public class MovieController {
@@ -99,13 +101,17 @@ public class MovieController {
     }
 
     @GetMapping("/movies/{id}/shows")
+  
     public String listShowsForMovie(@PathVariable Integer id, Model model) {
         Movie movie = movieService.findById(id);
         List<Show> shows = showService.findUpcomingShows(movie);
+        
         model.addAttribute("movie", movie);
         model.addAttribute("shows", shows);
         model.addAttribute("contentPage", "/WEB-INF/views/user/movieShows.jsp");
         model.addAttribute("pageTitle", movie.getTitle() + " - Showtimes");
+        System.out.println("Movie: " + movie);
+        System.out.println("Shows size: " + shows.size());
         return "layout/layout";
     }
 

@@ -35,7 +35,11 @@ public class ShowDao extends GenericDao<Show, Integer> {
     public List<Show> findUpcomingShows(Movie movie) {
         Session session = getSession();
         Query<Show> query = session.createQuery(
-                "from Show where movie.id = :mid and showTime >= :now order by showTime", Show.class);
+        		 "select s from Show s " +
+        		            "join fetch s.screen sc " +
+        		            "join fetch sc.theater " +
+        		            "where s.movie.id = :mid and s.showTime >= :now " +
+        		            "order by s.showTime", Show.class);
         query.setParameter("mid", movie.getId());
         query.setParameter("now", LocalDateTime.now());
         return query.list();
