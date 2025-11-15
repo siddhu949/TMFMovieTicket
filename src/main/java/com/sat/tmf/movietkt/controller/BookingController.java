@@ -38,9 +38,13 @@ public class BookingController {
     @Transactional
     public String selectSeats(@PathVariable Integer showId, Model model) {
         Show show = showService.findById(showId);
-   
+     // Initialize lazy association
+        Hibernate.initialize(show.getSeatTemplate());
+        // Get booked seat IDs for this show
+        List<Integer> bookedSeatIds = bookingService.getBookedSeatIds(showId);
         model.addAttribute("show", show);
         model.addAttribute("templateSeats", seatService.findByTemplateId(show.getSeatTemplate().getId()));
+        model.addAttribute("bookedSeatIds", bookedSeatIds); // Add booked seats
         model.addAttribute("contentPage", "/WEB-INF/views/user/selectSeats.jsp");
         model.addAttribute("pageTitle", "Select Seats for " + show.getMovie().getTitle());
         return "layout/layout";
@@ -51,6 +55,10 @@ public class BookingController {
     public String holdSeats(@RequestParam Integer showId,
                             @RequestParam List<Integer> seatIds,
                             Principal principal, Model model) {
+    	 // Check if user is authenticated
+        if (principal == null) {
+            return "redirect:/user/login?redirect=/booking/select/" + showId;
+        }
         User user = userService.findByUsername(principal.getName());
         Show show = showService.findById(showId);
         Booking booking = bookingService.holdSeats(user, show, seatIds);

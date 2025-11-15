@@ -56,7 +56,7 @@ public class UserController {
             if(loggedUser!=null){}
             session.setAttribute("loggedUser",loggedUser);
             model.addAttribute("user",loggedUser);
-            model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
+            model.addAttribute("contentPage", "/WEB-INF/views/home.jsp");
             return "layout/layout";
            
         } catch (Exception e) {

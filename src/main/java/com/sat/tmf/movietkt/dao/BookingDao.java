@@ -49,5 +49,18 @@ public class BookingDao extends GenericDao<Booking, Integer> {
                 .setParameter("now", LocalDateTime.now())
                 .executeUpdate();
     }
+    /**
+     * Find booked seat IDs for a show (seats that are HOLD or CONFIRMED).
+     */
+    public List<Integer> findBookedSeatIdsByShowId(Integer showId) {
+        Session session = getSession();
+        Query<Integer> query = session.createQuery(
+            "SELECT bs.templateSeat.id FROM BookingSeat bs " +
+            "WHERE bs.booking.show.id = :showId " +
+            "AND bs.booking.status IN ('HOLD', 'CONFIRMED')", 
+            Integer.class);
+        query.setParameter("showId", showId);
+        return query.list();
+    }
 }
 

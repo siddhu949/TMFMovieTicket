@@ -334,7 +334,7 @@
             <li><a href="/movies">Movies</a></li>
             <li><a href="/theaters">Theaters</a></li>
             <li><a href="/offers">Offers</a></li>
-            <li><a href="login">Login</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/login">Login</a></li>
         </ul>
     </nav>
 
@@ -359,9 +359,7 @@
                         <h3 class="movie-title">${movie.title}</h3>
                         <p class="movie-genre">${movie.genre}</p>
                         <div class="movie-footer">
-<%--                            <div class="rating">--%>
-<%--                                ⭐ ${movie.rating}--%>
-<%--                            </div>--%>
+
                             <button class="book-btn">Book Now</button>
                         </div>
                     </div>

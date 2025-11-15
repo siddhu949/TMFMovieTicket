@@ -23,7 +23,7 @@
         </div>
         <button type="submit" class="btn btn-primary w-100">Register</button>
         <p class="text-center mt-3">Already have an account? 
-           <a href="${pageContext.request.contextPath}/login">Login here</a>
+           <a href="${pageContext.request.contextPath}/user/login">Login here</a>
         </p>
     </form>
 </div>
