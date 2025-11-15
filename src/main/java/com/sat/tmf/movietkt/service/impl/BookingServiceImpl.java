@@ -84,5 +84,9 @@ public class BookingServiceImpl implements BookingService {
 	public Booking findById(Integer bookingId) {
 		 Booking booking = bookingDao.findById(bookingId);
 	        return booking;	}
+	@Override
+	public List<Integer> getBookedSeatIds(Integer showId) {
+	    return bookingDao.findBookedSeatIdsByShowId(showId);
+	}
 }
 

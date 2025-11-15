@@ -13,12 +13,12 @@
         <!-- Guest Navigation -->
         <c:if test="${empty sessionScope.user}">
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/login">
+            <a class="nav-link" href="${pageContext.request.contextPath}/user/login">
               <i class="fa fa-sign-in-alt"></i> Login
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/register">
+            <a class="nav-link" href="${pageContext.request.contextPath}/user/register">
               <i class="fa fa-user-plus"></i> Register
             </a>
           </li>
