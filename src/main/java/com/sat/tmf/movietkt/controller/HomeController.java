@@ -23,7 +23,11 @@ public class HomeController {
 
         model.addAttribute("featuredMovies", featuredMovies);
         model.addAttribute("appName", "TMF Cinema");
+        model.addAttribute("contentPage", "/WEB-INF/views/home.jsp");   // <--- IMPORTANT
+        model.addAttribute("pageTitle", "Home");
 
-        return "home";
+
+
+        return "layout/layout";
     }
 }

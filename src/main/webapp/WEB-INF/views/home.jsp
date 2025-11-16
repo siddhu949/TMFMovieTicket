@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${appName} - Book Your Movie Tickets</title>
+   
     <style>
         * {
             margin: 0;
@@ -69,7 +69,8 @@
         .hero {
             padding: 6rem 5% 4rem;
             text-align: center;
-            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+            margin-top:-30px;
+           
         }
 
         .hero h1 {
@@ -276,14 +277,14 @@
 
         /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.8);
+            background: blue;
             padding: 2rem 5%;
             text-align: center;
             margin-top: 4rem;
         }
 
         footer p {
-            color: #888;
+            color: #fff;
         }
 
         @keyframes fadeInDown {
@@ -324,19 +325,7 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">
-            🎬 ${appName}
-        </div>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/movies">Movies</a></li>
-            <li><a href="/theaters">Theaters</a></li>
-            <li><a href="/offers">Offers</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/login">Login</a></li>
-        </ul>
-    </nav>
+
 
     <!-- Hero Section -->
     <section class="hero">
@@ -344,7 +333,7 @@
         <p>Experience the magic of cinema with just a few clicks!</p>
         <div class="cta-buttons">
             <a href="/movies" class="btn btn-primary">Browse Movies</a>
-            <a href="/offers" class="btn btn-secondary">View Offers</a>
+           <!--   <a href="/offers" class="btn btn-secondary">View Offers</a>-->
         </div>
     </section>
 
@@ -395,9 +384,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 ${appName}. All rights reserved. | Privacy Policy | Terms of Service</p>
-    </footer>
+    
 </body>
 </html>

@@ -1,7 +1,7 @@
 <footer class="mt-5 p-3 text-center">
   <div class="container">
     <p class="mb-1">© 2025 Movie Ticket Booking Platform</p>
-    <p class="text-muted small mb-0">
+    <p class="text-muted small mb-0 ">
       Developed with using Spring Boot, Hibernate, JSP & MySQL.
     </p>
   </div>
