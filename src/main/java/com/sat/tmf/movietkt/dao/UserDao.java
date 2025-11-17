@@ -2,6 +2,8 @@ package com.sat.tmf.movietkt.dao;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.sat.tmf.movietkt.entities.User;
@@ -14,6 +16,7 @@ import java.util.List;
  */
 @Repository
 public class UserDao extends GenericDao<User, Integer> {
+
 
     public UserDao() {
         super(User.class);
@@ -61,12 +64,26 @@ public class UserDao extends GenericDao<User, Integer> {
      * @param password plain password (compare encoded in service)
      * @return matching User or null
      */
-    public User authenticate(String username, String password) {
-        Session session = getSession();
-        Query<User> query = session.createQuery("from User where username = :uname and password = :pwd", User.class);
-        query.setParameter("uname", username);
-        query.setParameter("pwd", password);
-        return query.uniqueResult();
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    public User authenticate(String username, String rawPassword) {
+
+        Session session = getSession();
+
+        // 1. Fetch user by username
+        Query<User> query = session.createQuery(
+                "from User where username = :uname",
+                User.class
+        );
+        query.setParameter("uname", username);
+
+        User user = query.uniqueResult();
+
+        // 2. Compare BCrypt password
+        if (user != null && passwordEncoder.matches(rawPassword, user.getPassword())) {
+            return user;  // Authentication successful
+        }
+
+        return null; // Authentication failed
     }
 }
