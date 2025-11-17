@@ -70,7 +70,7 @@ public class UserDao extends GenericDao<User, Integer> {
 
         Session session = getSession();
 
-        // 1. Fetch user by username
+        // 1. Fetch user
         Query<User> query = session.createQuery(
                 "from User where username = :uname",
                 User.class
@@ -79,11 +79,21 @@ public class UserDao extends GenericDao<User, Integer> {
 
         User user = query.uniqueResult();
 
-        // 2. Compare BCrypt password
-        if (user != null && passwordEncoder.matches(rawPassword, user.getPassword())) {
-            return user;  // Authentication successful
+        // Debugging log (correct place)
+        System.out.println("USERNAME FOUND? " + (user != null));
+        if (user != null) {
+            System.out.println("RAW PW = " + rawPassword);
+            System.out.println("DB HASH = " + user.getPassword());
+            System.out.println("MATCHES = " + passwordEncoder.matches(rawPassword, user.getPassword()));
         }
 
-        return null; // Authentication failed
+        // Compare
+        if (user != null && passwordEncoder.matches(rawPassword, user.getPassword())) {
+            return user;
+        }
+
+        return null;
     }
+
+
 }

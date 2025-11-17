@@ -36,68 +36,80 @@ public class UserController {
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
         }
-        model.addAttribute("contentPage", "/WEB-INF/views/pages/register.jsp");
+        model.addAttribute("contentPage", "/WEB-INF/views/pages/login.jsp");
         return "layout/layout";
     }
     
- // =================== LOGIN ===================
-    @GetMapping("/login")
-    public String showLoginPage(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("contentPage", "/WEB-INF/views/pages/login.jsp");
-        model.addAttribute("pageTitle", "login");
-        return "layout/layout";
-    }
-
-    @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model, HttpSession session) {
-
-        User loggedUser = null;
-
-        try {
-            loggedUser = userService.authentication(user.getUsername(), user.getPassword());
-
-            if (loggedUser != null) {
-                // store in session
-                session.setAttribute("user", loggedUser);
-
-                // load home page
-                model.addAttribute("user", loggedUser);
-                model.addAttribute("contentPage", "/WEB-INF/views/home.jsp");
-
-                return "layout/layout";   // STOP here → Do not fall through
-            } else {
-                model.addAttribute("error", "Invalid username or password");
-            }
-
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-        }
-
-        // Login failed → show login page
-        model.addAttribute("contentPage", "/WEB-INF/views/pages/login.jsp");
-        return "layout/layout";
-    }
+ 
 
 
     // =================== PROFILE ===================
     @GetMapping("/profile")
-    public String viewProfile(Model model, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
+    public String viewProfile(HttpSession session, Principal principal, Model model) {
+        User user = null;
+
+        // 1️⃣ Try to get from Principal (Spring Security)
+        if (principal != null) {
+            String username = principal.getName();
+            user = userService.findByUsername(username);
+        }
+
+        // 2️⃣ Fallback to session (manual login)
+        if (user == null) {
+            user = (User) session.getAttribute("user");
+        }
+
+        // 3️⃣ If still null → not logged in
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        // 4️⃣ Add user to model
         model.addAttribute("user", user);
         model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
         model.addAttribute("pageTitle", "My Profile");
+
         return "layout/layout";
     }
 
+
+
     @PostMapping("/updateProfile")
-    public String updateProfile(@ModelAttribute User user, Principal principal, Model model) {
-        userService.updateUserProfile(principal.getName(), user);
+    public String updateProfile(@ModelAttribute User user, Principal principal, 
+                                HttpSession session, Model model) {
+
+        User currentUser = null;
+
+        // 1️⃣ Try Principal
+        if (principal != null) {
+            currentUser = userService.findByUsername(principal.getName());
+        }
+
+        // 2️⃣ Fallback to session
+        if (currentUser == null) {
+            currentUser = (User) session.getAttribute("user");
+        }
+
+        // 3️⃣ If still null → not logged in
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
+
+        // 4️⃣ Update profile
+        userService.updateUserProfile(currentUser.getUsername(), user);
+
+        // 5️⃣ Update session if using session login
+        session.setAttribute("user", userService.findByUsername(currentUser.getUsername()));
+
+        // 6️⃣ Add model attributes for feedback
         model.addAttribute("message", "Profile updated successfully!");
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("user", userService.findByUsername(currentUser.getUsername()));
         model.addAttribute("contentPage", "/WEB-INF/views/profile.jsp");
+        model.addAttribute("pageTitle", "My Profile");
+
         return "layout/layout";
     }
+
 
     // =================== ADMIN VIEW ALL USERS ===================
     @GetMapping("/list")
@@ -108,10 +120,6 @@ public class UserController {
         return "layout/layout";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-        session.invalidate();
-        return "redirect:/user/login";
-    }
+ 
 }
 

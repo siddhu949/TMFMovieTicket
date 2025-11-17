@@ -27,7 +27,7 @@ public class Booking {
     private LocalDateTime holdExpiresAt;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BookingSeat> seats;
+    private List<BookingSeat> seats ;
 
     // Getters and setters
     public Integer getId() { return id; }

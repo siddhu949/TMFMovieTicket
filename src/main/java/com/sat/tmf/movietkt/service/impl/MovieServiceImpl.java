@@ -1,5 +1,6 @@
 package com.sat.tmf.movietkt.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,11 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> searchMovies(String keyword) {
         return movieDao.searchMovies(keyword);
     }
+    @Override
+    public List<Movie> findMoviesByCityDateLanguage(String city, String dateStr, String language) {
+        LocalDate date = LocalDate.parse(dateStr);
+        return movieDao.findMoviesByCityDateLanguage(city, date, language);
+    }
+
 }
 

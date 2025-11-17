@@ -13,7 +13,7 @@
         <!-- Guest Navigation -->
         <c:if test="${empty sessionScope.user}">
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/user/login">
+            <a class="nav-link" href="${pageContext.request.contextPath}/login">
               <i class="fa fa-sign-in-alt"></i> Login
             </a>
           </li>
@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/user/bookings">
+            <a class="nav-link" href="${pageContext.request.contextPath}/booking/history">
               <i class="fa fa-ticket-alt"></i> My Bookings
             </a>
           </li>

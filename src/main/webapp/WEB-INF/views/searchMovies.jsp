@@ -9,6 +9,7 @@
 <div class="container mt-4">
     <h2>Find Movies</h2>
     <form action="${pageContext.request.contextPath}/movies/search" method="get" class="row g-3">
+    
         <div class="col-md-3">
             <input name="city" class="form-control" placeholder="City" required>
         </div>

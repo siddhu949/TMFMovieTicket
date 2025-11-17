@@ -34,11 +34,15 @@ public class UserAuthFilter implements Filter {
         }
 
 
-        if (session == null || session.getAttribute("loggedUser") == null) {
-            res.sendRedirect(req.getContextPath() + "/user/login");
-            return;
-        }
+        // Protected
+        if (path.startsWith("/user/")) {
 
+            // IMPORTANT FIX: Check "user" instead of "loggedUser"
+            if (session == null || session.getAttribute("user") == null) {
+                res.sendRedirect(req.getContextPath() + "/user/login");
+                return;
+            }
+        }
         // Continue to controller if logged in
         chain.doFilter(request, response);
     }

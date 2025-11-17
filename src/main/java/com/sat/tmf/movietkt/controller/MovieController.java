@@ -114,6 +114,43 @@ public class MovieController {
         System.out.println("Shows size: " + shows.size());
         return "layout/layout";
     }
+    @GetMapping("/movies/search")
+    public String searchMoviesGet(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String language,
+            Model model) {
+
+        List<Movie> movies;
+
+        // Check if city and date are provided
+        if ((city != null && !city.isBlank()) && (date != null && !date.isBlank())) {
+            // Use the same service method as your POST mapping
+            movies = movieService.findMoviesByCityDateLanguage(
+                    city,
+                    date,
+                    (language != null && !language.isBlank()) ? language : null
+            );
+        } else {
+            // If no city/date provided, show all movies
+            movies = movieService.findAllMovies();
+        }
+
+        // Add attributes to the model for the JSP
+        model.addAttribute("movies", movies);
+        model.addAttribute("city", city);
+        model.addAttribute("date", date);
+        model.addAttribute("language", language);
+        model.addAttribute("contentPage", "/WEB-INF/views/searchMovies.jsp");
+        model.addAttribute("pageTitle", "Search Movies");
+
+        return "layout/layout";
+    }
+
+   
+
+
+
 
 }
 
