@@ -18,7 +18,7 @@ public class Booking {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "show_id", nullable = false)
     private Show show;
 
@@ -27,7 +27,7 @@ public class Booking {
     private String status; // HOLD, CONFIRMED, CANCELLED
     private LocalDateTime holdExpiresAt;
 
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<BookingSeat> seats = new ArrayList<>();;
 
     // Getters and setters
