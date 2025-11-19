@@ -17,7 +17,7 @@
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({status: 'payment_success', txn_id: '${payment.txnId}'})
             }).then(() => {
-                window.location.href = '${pageContext.request.contextPath}/booking/confirm?bookingId=${booking.id}';
+                window.location.href = '${pageContext.request.contextPath}/payment/confirm?bookingId=${booking.id}';
             });
         }, 1500);
     });

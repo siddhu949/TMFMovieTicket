@@ -1,5 +1,6 @@
 package com.sat.tmf.movietkt.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sat.tmf.movietkt.entities.Movie;
+import com.sat.tmf.movietkt.entities.MovieReview;
 import com.sat.tmf.movietkt.entities.Show;
+import com.sat.tmf.movietkt.service.MovieReviewService;
 import com.sat.tmf.movietkt.service.MovieService;
 import com.sat.tmf.movietkt.service.ShowService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -147,7 +152,11 @@ public class MovieController {
         return "layout/layout";
     }
 
-   
+    @Autowired
+    private MovieReviewService reviewService;
+
+
+  
 
 
 

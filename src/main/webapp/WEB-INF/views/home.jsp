@@ -349,7 +349,11 @@
                         <p class="movie-genre">${movie.genre}</p>
                         <div class="movie-footer">
 
-                            <button class="book-btn">Book Now</button>
+                           <button class="book-btn"
+        onclick="window.location.href='${pageContext.request.contextPath}/movies/${movie.id}/shows'">
+    Book Now
+</button>
+
                         </div>
                     </div>
                 </div>
