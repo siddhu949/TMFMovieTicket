@@ -2,9 +2,11 @@ package com.sat.tmf.movietkt.service.impl;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +36,10 @@ public class BookingServiceImpl implements BookingService {
         booking.setBookingTime(LocalDateTime.now());
         booking.setStatus("HOLD");
         booking.setHoldExpiresAt(LocalDateTime.now().plusMinutes(10));
-
+        // Ensure seat list initialized
+        if (booking.getSeats() == null) {
+            booking.setSeats(new ArrayList<>());
+        }
         List<TemplateSeat> selectedSeats = seatDao.findByTemplateId(show.getSeatTemplate().getId())
                 .stream()
                 .filter(seat -> seatIds.contains(seat.getId()))
@@ -56,6 +61,7 @@ public class BookingServiceImpl implements BookingService {
             bs.setPrice(ts.getPrice());
             booking.getSeats().add(bs);
         }
+   
 
         return booking;
     }

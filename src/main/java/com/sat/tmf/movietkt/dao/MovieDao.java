@@ -1,5 +1,7 @@
 package com.sat.tmf.movietkt.dao;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -34,5 +36,39 @@ public class MovieDao extends GenericDao<Movie, Integer> {
                 "select distinct language from Movie where language is not null", String.class)
                 .list();
     }
+    public List<Movie> findMoviesByCityDateLanguage(String city, LocalDate date, String language) {
+        Session session = getSession();
+
+        // Query movies via Show join to avoid "m.shows" problem
+        String hql = "select distinct s.movie from Show s " +
+                     "join s.screen sc " +
+                     "join sc.theater t " +
+                     "where t.city = :city " +
+                     "and s.showTime >= :startOfDay " +
+                     "and s.showTime < :endOfDay";
+
+        if (language != null && !language.isEmpty()) {
+            hql += " and s.movie.language = :language";
+        }
+
+        Query<Movie> query = session.createQuery(hql, Movie.class);
+
+        query.setParameter("city", city);
+
+        // Filter shows within the selected date
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.plusDays(1).atStartOfDay();
+
+        query.setParameter("startOfDay", startOfDay);
+        query.setParameter("endOfDay", endOfDay);
+
+        if (language != null && !language.isEmpty()) {
+            query.setParameter("language", language);
+        }
+
+        return query.list();
+    }
+
+
 }
 

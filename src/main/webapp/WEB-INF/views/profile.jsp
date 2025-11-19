@@ -43,9 +43,9 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <a href="${pageContext.request.contextPath}/user/bookings" class="btn btn-outline-secondary">
-                            <i class="fa fa-arrow-left"></i> Back
-                        </a>
+                        <button type="button" class="btn btn-outline-secondary" onclick="history.back();">
+        <i class="fa fa-arrow-left"></i> Back
+    </button>
                         <button type="submit" class="btn btn-primary">
                             <i class="fa fa-save"></i> Save Changes
                         </button>

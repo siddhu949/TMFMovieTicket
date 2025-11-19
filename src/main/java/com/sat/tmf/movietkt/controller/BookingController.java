@@ -22,6 +22,9 @@ import com.sat.tmf.movietkt.service.ShowService;
 import com.sat.tmf.movietkt.service.TemplateSeatService;
 import com.sat.tmf.movietkt.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -50,23 +53,35 @@ public class BookingController {
         return "layout/layout";
     }
 
-    // Hold seats
+ // Hold seats
     @PostMapping("/hold")
     public String holdSeats(@RequestParam Integer showId,
                             @RequestParam List<Integer> seatIds,
-                            Principal principal, Model model) {
-    	 // Check if user is authenticated
-        if (principal == null) {
-            return "redirect:/user/login?redirect=/booking/select/" + showId;
+                            HttpServletRequest request,  // Use HTTP request
+                            Model model) {
+
+        HttpSession session = request.getSession(false); // get existing session
+        if (session == null || session.getAttribute("user") == null) {
+            // Redirect to login page with redirect param
+            return "redirect:/login?redirect=/booking/select/" + showId;
         }
-        User user = userService.findByUsername(principal.getName());
+
+        // Get logged-in user from session
+        User user = (User) session.getAttribute("user");
+
+        // Get show and hold seats
         Show show = showService.findById(showId);
         Booking booking = bookingService.holdSeats(user, show, seatIds);
+        
+        
+        // Add attributes to model
         model.addAttribute("booking", booking);
         model.addAttribute("contentPage", "/WEB-INF/views/user/confirmBooking.jsp");
         model.addAttribute("pageTitle", "Confirm Booking");
+
         return "layout/layout";
     }
+
 
     // Confirm booking
     @PostMapping("/confirm")
@@ -80,9 +95,25 @@ public class BookingController {
 
     // View booking history
     @GetMapping("/history")
-    public String viewHistory(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
+    public String viewHistory(Principal principal, HttpSession session, Model model) {
+        User user = null;
+
+        // Try to get the user from Principal (Spring Security)
+        if (principal != null) {
+            user = userService.findByUsername(principal.getName());
+        } 
+        // Otherwise, get from session (matches your navbar)
+        else if (session.getAttribute("user") != null) {
+            user = (User) session.getAttribute("user");
+        }
+
+        if (user == null) {
+            // If still null, redirect to login
+            return "redirect:/login";
+        }
+
         List<Booking> bookings = bookingService.findByUser(user);
+
         model.addAttribute("bookings", bookings);
         model.addAttribute("contentPage", "/WEB-INF/views/user/bookingHistory.jsp");
         model.addAttribute("pageTitle", "My Bookings");

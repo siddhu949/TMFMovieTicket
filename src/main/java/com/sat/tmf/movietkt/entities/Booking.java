@@ -3,6 +3,7 @@ package com.sat.tmf.movietkt.entities;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class Booking {
     private LocalDateTime holdExpiresAt;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BookingSeat> seats;
+    private List<BookingSeat> seats = new ArrayList<>();;
 
     // Getters and setters
     public Integer getId() { return id; }

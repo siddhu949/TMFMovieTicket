@@ -8,7 +8,7 @@
 <body class="bg-light">
 <div class="container mt-5 col-md-5">
     <h2 class="text-center mb-4">User Login</h2>
-    <form action="${pageContext.request.contextPath}/user/login" method="post" class="card p-4 shadow-sm">
+    <form action="${pageContext.request.contextPath}/login" method="post" class="card p-4 shadow-sm">
         <c:if test="${not empty error}">
             <div class="alert alert-danger">${error}</div>
         </c:if>
