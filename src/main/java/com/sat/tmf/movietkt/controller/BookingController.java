@@ -72,7 +72,8 @@ public class BookingController {
         // Get show and hold seats
         Show show = showService.findById(showId);
         Booking booking = bookingService.holdSeats(user, show, seatIds);
-
+        
+        
         // Add attributes to model
         model.addAttribute("booking", booking);
         model.addAttribute("contentPage", "/WEB-INF/views/user/confirmBooking.jsp");
