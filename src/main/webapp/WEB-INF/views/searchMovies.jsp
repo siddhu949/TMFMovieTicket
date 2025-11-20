@@ -37,7 +37,7 @@
                             <td>${movie.title}</td>
                             <td>${movie.language}</td>
                             <td>${movie.duration} mins</td>
-                            <td><a href="${pageContext.request.contextPath}/shows?movieId=${movie.id}" 
+                            <td><a href="${pageContext.request.contextPath}/movies/${movie.id}/shows" 
                                    class="btn btn-outline-primary btn-sm">View Shows</a></td>
                         </tr>
                     </c:forEach>
