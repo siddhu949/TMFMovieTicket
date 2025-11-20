@@ -1,4 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="container mt-4">
+
     <h2>My Bookings</h2>
     <table class="table table-bordered">
         <thead>
@@ -14,10 +17,14 @@
         <c:forEach var="b" items="${bookings}">
             <tr>
                 <td>${b.id}</td>
-                <td>${b.show.movie.title}</td>
-                <td>${b.show.showTime}</td>
-                <td>${b.status}</td>
-                <td>Rs. ${b.amount}</td>
+                <td>
+                    <c:out value="${b.show != null && b.show.movie != null ? b.show.movie.title : 'N/A'}"/>
+                </td>
+                <td>
+                    <c:out value="${b.show != null ? b.show.showTime : 'N/A'}"/>
+                </td>
+                <td><c:out value="${b.status}"/></td>
+                <td>Rs. <c:out value="${b.amount}"/></td>
             </tr>
         </c:forEach>
         </tbody>
