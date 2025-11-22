@@ -81,7 +81,7 @@ public class MovieController {
     @GetMapping("/admin/movies/delete/{id}")
     public String deleteMovie(@PathVariable Integer id) {
         movieService.deleteMovie(id);
-        return "redirect:/admin/movies";
+        return "redirect:/admin/adminMovies";
     }
     
  // === USER MOVIE BROWSING ===

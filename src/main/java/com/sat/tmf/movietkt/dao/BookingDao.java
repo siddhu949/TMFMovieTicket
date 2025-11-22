@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.sat.tmf.movietkt.entities.Booking;
+import com.sat.tmf.movietkt.entities.Movie;
 import com.sat.tmf.movietkt.entities.Show;
 import com.sat.tmf.movietkt.entities.User;
 
@@ -24,10 +25,44 @@ public class BookingDao extends GenericDao<Booking, Integer> {
     public List<Booking> findByUser(User user) {
         Session session = getSession();
         Query<Booking> query = session.createQuery(
-                "from Booking where user.id = :uid order by bookingTime desc", Booking.class);
+            "from Booking where user.id = :uid order by bookingTime desc",
+            Booking.class
+        );
         query.setParameter("uid", user.getId());
-        return query.list();
+
+        List<Booking> bookings = query.list();
+
+        // ============ MINIMAL DEBUG ============ 
+        System.out.println("==== DEBUG: User ID Check ====");
+        System.out.println("Logged-in User ID: " + user.getId());
+        System.out.println("Bookings found: " + bookings.size());
+        System.out.println("-------------------------------------");
+
+        for (Booking b : bookings) {
+            System.out.println("Booking ID: " + b.getId());
+
+            Show show = b.getShow();
+            if (show != null) {
+                System.out.println("Show ID: " + show.getId());
+                System.out.println("Show Time: " + show.getShowTime());
+
+                Movie movie = show.getMovie();
+                if (movie != null) {
+                    System.out.println("Movie ID: " + movie.getId());
+                    System.out.println("Movie Title: " + movie.getTitle());
+                } else {
+                    System.out.println("Movie is null");
+                }
+            } else {
+                System.out.println("Show is null");
+            }
+        }
+
+        // ====================================== 
+
+        return bookings;
     }
+
 
     /**
      * Find active bookings for a show (for seat blocking checks).
