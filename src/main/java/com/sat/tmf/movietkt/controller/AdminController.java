@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sat.tmf.movietkt.entities.User;
 import com.sat.tmf.movietkt.service.MovieService;
@@ -44,5 +46,11 @@ public class AdminController {
 
         return "layout/layout";
     }
+    @PostMapping("/admin/deleteMovie")
+    public String deleteMovie(@RequestParam("movieId") Integer movieId) {
+        movieService.deleteMovie(movieId);
+        return "redirect:/admin/movies"; // go back to movies tab
+    }
+
 
 }
