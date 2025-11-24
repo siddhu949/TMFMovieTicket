@@ -121,7 +121,7 @@
 <!-- ======================= ADD MOVIE MODAL ======================= -->
 <div class="modal fade" id="addMovieModal" tabindex="-1">
   <div class="modal-dialog">
-    <form action="${pageContext.request.contextPath}/admin/addMovie" method="post" class="modal-content">
+    <form action="${pageContext.request.contextPath}/admin/movies/add" method="post" class="modal-content">
       <div class="modal-header bg-dark text-white">
         <h5 class="modal-title">Add Movie</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
