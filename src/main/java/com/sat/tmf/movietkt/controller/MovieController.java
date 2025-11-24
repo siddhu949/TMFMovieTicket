@@ -64,7 +64,7 @@ public class MovieController {
     @PostMapping("/admin/movies/add")
     public String addMovie(@ModelAttribute Movie movie) {
         movieService.addMovie(movie);
-        return "redirect:/admin/movies";
+        return "redirect:/admin/dashboard";
     }
 
     // Edit movie form
